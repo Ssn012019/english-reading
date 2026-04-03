@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流利阅读 - 英语学习平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e63946;
+            --primary-light: #10b981;
+            --primary-dark: #047857;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --bg-main: #fefefe;
+            --bg-card: #ffffff;
+            --bg-subtle: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --font-en: 'Crimson Pro', Georgia, serif;
+            --font-cn: 'Noto Sans SC', sans-serif;
+            --font-ui: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-cn);
+            background: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0d9488 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        nav button:hover, nav button.active {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+        }
+
+        nav button.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 50%, #fefce8 100%);
+            border-radius: var(--radius-lg);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+            font-family: var(--font-ui);
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Articles Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .article-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+        }
+
+        .article-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .article-cover {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+        }
+
+        .article-content {
+            padding: 1.25rem;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .article-category {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .article-level {
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .article-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            font-family: var(--font-ui);
+        }
+
+        .article-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .article-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .article-word-count {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Article Detail View */
+        .article-detail {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .article-detail.active {
+            display: block;
+        }
+
+        .detail-header {
+            position: relative;
+        }
+
+        .detail-cover {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .detail-header-content {
+            padding: 2rem;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            color: white;
+        }
+
+        .detail-category {
+            background: var(--accent);
+            color: white;
+            padding: 0.35rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+
+        .detail-title {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+            font-family: var(--font-ui);
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 1.5rem;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .detail-body {
+            padding: 2rem;
+        }
+
+        .reading-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-subtle);
+            border: 1.5px solid var(--border);
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .control-btn.speaking {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .paragraph {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .paragraph:last-child {
+            border-bottom: none;
+        }
+
+        .paragraph-en {
+            font-family: var(--font-en);
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .paragraph-en .word {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+
+        .paragraph-en .word:hover {
+            background: rgba(5, 150, 105, 0.15);
+            color: var(--primary-dark);
+        }
+
+        .paragraph-en .word:active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .paragraph-cn {
+            font-family: var(--font-cn);
+            font-size: 1rem;
+            color: var(--text-secondary);
+            padding-left: 1rem;
+            border-left: 3px solid var(--primary-light);
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .quiz-progress-bar {
+            width: 200px;
+            height: 8px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+            transition: width 0.3s;
+        }
+
+        .quiz-question {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-word {
+            font-family: var(--font-en);
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-hint {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .quiz-option {
+            background: var(--bg-subtle);
+            border: 2px solid var(--border);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-primary);
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background: rgba(5, 150, 105, 0.05);
+        }
+
+        .quiz-option.correct {
+            background: rgba(5, 150, 105, 0.15);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .quiz-option.wrong {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: #ef4444;
+            color: #dc2626;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .quiz-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-message {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-subtle);
+            border: 1.5px solid var(--border);
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-ui);
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Word Popup */
+        .word-popup {
+            position: fixed;
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: none;
+            max-width: 280px;
+            border: 1px solid var(--border);
+        }
+
+        .word-popup.active {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .popup-word {
+            font-family: var(--font-en);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .popup-phonetic {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .popup-meaning {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .popup-speak-btn {
+            margin-top: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-title {
+                font-size: 1.5rem;
+            }
+
+            .detail-cover {
+                height: 200px;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .reading-controls {
+                flex-direction: column;
+            }
+
+            .control-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Voice selection */
+        .voice-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .voice-selector select {
+            padding: 0.5rem;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-ui);
+            font-size: 0.85rem;
+            background: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo" onclick="showHome()">
+                <div class="logo-icon">📚</div>
+                <span>流利阅读</span>
+            </div>
+            <nav>
+                <button class="active" onclick="showHome()">首页</button>
+                <button onclick="startQuiz()">单词测验</button>
+                <div class="voice-selector">
+                    <label style="font-size: 0.85rem; opacity: 0.9;">发音:</label>
+                    <select id="voiceSelect"></select>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="mainContent">
+        <!-- Home View -->
+        <div id="homeView">
+            <section class="hero">
+                <h1>提升英语，从阅读开始</h1>
+                <p>精选外刊文章，配有中文翻译和语音朗读，点击单词即可发音，让英语学习更轻松高效</p>
+            </section>
+
+            <div class="filter-section">
+                <span class="filter-label">分类筛选:</span>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">全部</button>
+                    <button class="filter-btn" data-category="technology">科技</button>
+                    <button class="filter-btn" data-category="business">商业</button>
+                    <button class="filter-btn" data-category="health">健康</button>
+                    <button class="filter-btn" data-category="environment">环境</button>
+                    <button class="filter-btn" data-category="education">教育</button>
+                    <button class="filter-btn" data-category="culture">文化</button>
+                </div>
+            </div>
+
+            <div class="articles-grid" id="articlesGrid"></div>
+        </div>
+
+        <!-- Article Detail View -->
+        <div class="article-detail" id="articleDetail">
+            <button class="back-btn" onclick="showHome()">← 返回文章列表</button>
+            <div class="detail-header">
+                <img class="detail-cover" id="detailCover" src="" alt="">
+                <div class="detail-header-content">
+                    <span class="detail-category" id="detailCategory"></span>
+                    <h1 class="detail-title" id="detailTitle"></h1>
+                    <div class="detail-meta">
+                        <span id="detailLevel"></span>
+                        <span id="detailWordCount"></span>
+                        <span id="detailReadTime"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-body">
+                <div class="reading-controls">
+                    <button class="control-btn" id="readAllBtn" onclick="toggleReadAll()">
+                        <span>🔊</span>
+                        <span>全文朗读</span>
+                    </button>
+                    <button class="control-btn" onclick="stopReading()">
+                        <span>⏹</span>
+                        <span>停止朗读</span>
+                    </button>
+                    <button class="control-btn" onclick="startQuiz()">
+                        <span>📝</span>
+                        <span>单词测验</span>
+                    </button>
+                </div>
+                <div id="articleContent"></div>
+            </div>
+        </div>
+
+        <!-- Quiz View -->
+        <div class="quiz-section" id="quizSection">
+            <button class="back-btn" onclick="showHome()">← 返回首页</button>
+            <div class="quiz-header">
+                <h2 class="quiz-title">单词测验</h2>
+                <div class="quiz-progress">
+                    <span id="quizProgress">题目 1/10</span>
+                    <div class="quiz-progress-bar">
+                        <div class="quiz-progress-fill" id="quizProgressFill" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="quiz-question">
+                <div class="quiz-word" id="quizWord"></div>
+                <div class="quiz-hint">请选择正确的中文释义</div>
+            </div>
+            <div class="quiz-options" id="quizOptions"></div>
+            <div class="quiz-result" id="quizResult" style="display: none;">
+                <div class="quiz-score" id="quizScore"></div>
+                <div class="quiz-message" id="quizMessage"></div>
+                <button class="control-btn" onclick="startQuiz()">再测一次</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="word-popup" id="wordPopup">
+        <div class="popup-word" id="popupWord"></div>
+        <div class="popup-phonetic" id="popupPhonetic"></div>
+        <div class="popup-meaning" id="popupMeaning"></div>
+        <button class="popup-speak-btn" onclick="speakPopupWord()">🔊 发音</button>
+    </div>
+
+    <script>
+        // 文章数据 - 真实外刊风格内容
+        const articles = [
+            {
+                id: 1,
+                category: 'technology',
+                categoryCN: '科技',
+                level: '中级',
+                levelClass: 'intermediate',
+                title: 'The Rise of Artificial Intelligence in Healthcare',
+                titleCN: '人工智能在医疗领域的崛起',
+                desc: 'AI is transforming medical diagnosis, drug discovery, and patient care. Explore how machine learning algorithms are revolutionizing the healthcare industry.',
+                descCN: '人工智能正在改变医疗诊断、药物发现和患者护理。探索机器学习算法如何彻底改变医疗行业。',
+                cover: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=400&fit=crop',
+                wordCount: 520,
+                paragraphs: [
+                    {
+                        en: "Artificial intelligence is rapidly transforming the landscape of modern healthcare. From diagnostic imaging to drug discovery, AI algorithms are proving to be invaluable tools for medical professionals. These sophisticated systems can analyze vast amounts of medical data with remarkable speed and accuracy, often identifying patterns that human observers might miss.",
+                        cn: "人工智能正在迅速改变现代医疗的格局。从诊断成像到药物发现，AI算法正成为医疗专业人员不可或缺的工具。这些精密系统能够以惊人的速度和准确性分析大量医疗数据，通常能识别人类观察者可能忽略的模式。"
+                    },
+                    {
+                        en: "One of the most promising applications of AI in healthcare is in the field of radiology. Deep learning algorithms trained on millions of medical images can now detect early signs of diseases such as cancer with accuracy rates that rival or exceed those of experienced radiologists. This technology is particularly valuable in regions with shortages of medical specialists.",
+                        cn: "AI在医疗领域最有前途的应用之一是在放射学领域。经过数百万张医学图像训练的深度学习算法，现在可以检测癌症等疾病的早期迹象，准确率与经验丰富的放射科医生相当甚至更高。这项技术在医疗专家短缺的地区尤其有价值。"
+                    },
+                    {
+                        en: "Drug discovery represents another frontier where AI is making significant contributions. Traditional drug development is a time-consuming and expensive process, often taking over a decade and costing billions of dollars. Machine learning models can now predict how different molecules will interact with biological targets, dramatically accelerating the initial screening process.",
+                        cn: "药物发现是AI做出重大贡献的另一个前沿领域。传统的药物开发是一个耗时且昂贵的过程，通常需要十多年时间和数十亿美元。机器学习模型现在可以预测不同分子如何与生物靶点相互作用，极大地加速了初步筛选过程。"
+                    },
+                    {
+                        en: "However, the integration of AI into healthcare is not without challenges. Concerns about data privacy, algorithmic bias, and the need for regulatory frameworks remain significant hurdles. Medical professionals also emphasize that AI should be viewed as a tool to augment human expertise, not replace it entirely.",
+                        cn: "然而，将AI整合到医疗中并非没有挑战。关于数据隐私、算法偏见以及监管框架需求的担忧仍然是重大障碍。医疗专业人士也强调，AI应被视为增强人类专业知识的工具，而非完全取代它。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'transform', meaning: '彻底改变，转变' },
+                    { word: 'diagnostic', meaning: '诊断的' },
+                    { word: 'sophisticated', meaning: '复杂的，精密的' },
+                    { word: 'remarkable', meaning: '非凡的，显著的' },
+                    { word: 'accuracy', meaning: '准确性，精确度' },
+                    { word: 'radiology', meaning: '放射学' },
+                    { word: 'frontier', meaning: '前沿，边界' },
+                    { word: 'significant', meaning: '重大的，重要的' },
+                    { word: 'accelerate', meaning: '加速，促进' },
+                    { word: 'integration', meaning: '整合，融合' }
+                ]
+            },
+            {
+                id: 2,
+                category: 'business',
+                categoryCN: '商业',
+                level: '中级',
+                levelClass: 'intermediate',
+                title: 'Remote Work: The Future of Corporate Culture',
+                titleCN: '远程工作：企业文化的未来',
+                desc: 'The pandemic accelerated the shift to remote work. Now companies are rethinking their approach to workplace flexibility and employee engagement.',
+                descCN: '疫情加速了向远程工作的转变。现在公司正在重新思考工作场所灵活性和员工参与度的方法。',
+                cover: 'https://images.unsplash.com/photo-1587560699334-cc4a4d78528d?w=800&h=400&fit=crop',
+                wordCount: 480,
+                paragraphs: [
+                    {
+                        en: "The traditional office environment has undergone a dramatic transformation in recent years. What began as a temporary response to a global health crisis has evolved into a fundamental shift in how we think about work. Remote work, once considered a perk offered by progressive companies, has become a necessity and, for many, a preference.",
+                        cn: "传统的办公环境近年来经历了巨大的转变。最初作为对全球健康危机的临时应对措施，已经演变成我们对工作方式思考的根本性转变。远程工作曾经被认为是进步公司提供的福利，现在已成为一种必需品，对许多人来说也是一种偏好。"
+                    },
+                    {
+                        en: "Studies have shown that remote workers often report higher levels of job satisfaction and productivity. Without the daily commute, employees have more time for personal pursuits and family responsibilities. Many find that the flexibility to design their own work environment leads to better focus and creativity.",
+                        cn: "研究表明，远程工作者通常报告更高的工作满意度和生产力。没有日常通勤，员工有更多时间用于个人追求和家庭责任。许多人发现，设计自己工作环境的灵活性带来了更好的专注力和创造力。"
+                    },
+                    {
+                        en: "However, the shift to remote work presents significant challenges for corporate culture. Building team cohesion and maintaining employee engagement without face-to-face interaction requires intentional effort and new strategies. Companies are investing heavily in digital tools and virtual team-building activities.",
+                        cn: "然而，向远程工作的转变对企业文化提出了重大挑战。在没有面对面互动的情况下建立团队凝聚力和保持员工参与度需要有意识的努力和新策略。公司正在大力投资数字工具和虚拟团队建设活动。"
+                    },
+                    {
+                        en: "The hybrid model, combining remote and in-office work, is emerging as the preferred solution for many organizations. This approach offers flexibility while preserving opportunities for collaboration and mentorship that come from physical proximity. The companies that succeed will be those that can adapt their culture to this new reality.",
+                        cn: "结合远程和办公室工作的混合模式正成为许多组织的首选方案。这种方法提供了灵活性，同时保留了物理距离带来的协作和指导机会。成功的公司将是那些能够使其文化适应这一新现实的公司。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'dramatic', meaning: '巨大的，戏剧性的' },
+                    { word: 'transformation', meaning: '转变，变革' },
+                    { word: 'progressive', meaning: '进步的，先进的' },
+                    { word: 'necessity', meaning: '必要性，必需品' },
+                    { word: 'satisfaction', meaning: '满意，满足' },
+                    { word: 'productivity', meaning: '生产力，生产率' },
+                    { word: 'commute', meaning: '通勤，上下班路程' },
+                    { word: 'flexibility', meaning: '灵活性' },
+                    { word: 'cohesion', meaning: '凝聚力，团结' },
+                    { word: 'collaboration', meaning: '合作，协作' }
+                ]
+            },
+            {
+                id: 3,
+                category: 'health',
+                categoryCN: '健康',
+                level: '初级',
+                levelClass: 'beginner',
+                title: 'The Science of Sleep: Why Rest Matters',
+                titleCN: '睡眠科学：为什么休息很重要',
+                desc: 'Understanding the importance of quality sleep and its impact on physical health, mental well-being, and cognitive performance.',
+                descCN: '了解优质睡眠的重要性及其对身体健康、心理健康和认知表现的影响。',
+                cover: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&h=400&fit=crop',
+                wordCount: 420,
+                paragraphs: [
+                    {
+                        en: "Sleep is one of the most fundamental yet often neglected aspects of our health. During sleep, our bodies engage in essential processes of repair and restoration. The brain consolidates memories, processes emotions, and clears out toxins that accumulate during waking hours. Quality sleep is not a luxury but a biological necessity.",
+                        cn: "睡眠是我们健康中最基本却常被忽视的方面之一。在睡眠期间，我们的身体进行着修复和恢复的重要过程。大脑巩固记忆，处理情绪，清除清醒时积累的毒素。优质睡眠不是奢侈品，而是生物必需品。"
+                    },
+                    {
+                        en: "Research has consistently shown that insufficient sleep is linked to a wide range of health problems. Chronic sleep deprivation increases the risk of heart disease, diabetes, obesity, and a weakened immune system. Mental health is equally affected, with poor sleep quality strongly associated with depression and anxiety.",
+                        cn: "研究一致表明，睡眠不足与广泛的健康问题有关。长期睡眠剥夺会增加心脏病、糖尿病、肥胖和免疫系统减弱的风险。心理健康同样受到影响，睡眠质量差与抑郁和焦虑密切相关。"
+                    },
+                    {
+                        en: "The recommended amount of sleep varies by age, with adults generally needing between seven and nine hours per night. However, it's not just about duration—sleep quality matters too. Creating a consistent sleep schedule, limiting screen time before bed, and maintaining a cool, dark bedroom environment can significantly improve sleep quality.",
+                        cn: "建议的睡眠量因年龄而异，成年人通常每晚需要七到九小时的睡眠。然而，不仅仅是持续时间——睡眠质量也很重要。建立一致的睡眠时间表，限制睡前屏幕时间，保持凉爽、黑暗的卧室环境可以显著改善睡眠质量。"
+                    },
+                    {
+                        en: "Modern lifestyles often work against healthy sleep patterns. The blue light emitted by smartphones and computers can disrupt our natural circadian rhythms, making it harder to fall asleep. Caffeine, alcohol, and irregular schedules further compound the problem. Prioritizing sleep requires conscious lifestyle changes.",
+                        cn: "现代生活方式往往不利于健康的睡眠模式。智能手机和电脑发出的蓝光会扰乱我们的自然昼夜节律，使人更难入睡。咖啡因、酒精和不规律的时间表进一步加剧了问题。优先考虑睡眠需要有意识的生活方式改变。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'fundamental', meaning: '基本的，根本的' },
+                    { word: 'neglected', meaning: '被忽视的' },
+                    { word: 'essential', meaning: '必要的，必不可少的' },
+                    { word: 'restoration', meaning: '恢复，复原' },
+                    { word: 'consolidate', meaning: '巩固，加强' },
+                    { word: 'accumulation', meaning: '积累，积聚' },
+                    { word: 'deprivation', meaning: '剥夺，匮乏' },
+                    { word: 'chronic', meaning: '慢性的，长期的' }
+                ]
+            },
+            {
+                id: 4,
+                category: 'environment',
+                categoryCN: '环境',
+                level: '高级',
+                levelClass: 'advanced',
+                title: 'Climate Change: The Urgency of Action',
+                titleCN: '气候变化：行动的紧迫性',
+                desc: 'Global temperatures are rising at an unprecedented rate. Scientists warn that immediate action is needed to prevent catastrophic consequences for our planet.',
+                descCN: '全球气温正以前所未有的速度上升。科学家警告需要立即采取行动，以防止对我们的星球造成灾难性后果。',
+                cover: 'https://images.unsplash.com/photo-1569163139599-0f4517e36f51?w=800&h=400&fit=crop',
+                wordCount: 580,
+                paragraphs: [
+                    {
+                        en: "The scientific consensus on climate change is unequivocal. Human activities, primarily the burning of fossil fuels, have caused unprecedented warming of the Earth's atmosphere. The past decade has been the warmest on record, with each successive year breaking temperature records. The consequences of this warming are visible across the globe.",
+                        cn: "科学界对气候变化的共识是明确的。人类活动，主要是化石燃料的燃烧，导致了地球大气层前所未有的变暖。过去十年是有记录以来最温暖的十年，每年都在打破温度记录。这种变暖的后果在全球范围内都可见。"
+                    },
+                    {
+                        en: "Rising sea levels threaten coastal communities and entire island nations. Extreme weather events—hurricanes, droughts, floods, and wildfires—are becoming more frequent and intense. Ecosystems that have existed for millennia are collapsing, driving species to extinction at alarming rates. The Arctic is warming twice as fast as the rest of the planet.",
+                        cn: "海平面上升威胁着沿海社区和整个岛屿国家。极端天气事件——飓风、干旱、洪水和野火——变得更加频繁和强烈。存在数千年的生态系统正在崩溃，物种以惊人的速度灭绝。北极变暖的速度是地球其他地区的两倍。"
+                    },
+                    {
+                        en: "International agreements like the Paris Accords represent important steps toward addressing this crisis, but current commitments fall short of what scientists say is necessary. Limiting global warming to 1.5 degrees Celsius above pre-industrial levels would require immediate and dramatic reductions in greenhouse gas emissions across all sectors of the global economy.",
+                        cn: "《巴黎协定》等国际协议代表着应对这一危机的重要步骤，但目前的承诺还达不到科学家所说的必要水平。将全球变暖限制在比工业化前水平高1.5摄氏度，需要立即大幅减少全球经济各部门的温室气体排放。"
+                    },
+                    {
+                        en: "The transition to renewable energy is accelerating, but not fast enough. Wind and solar power have become cost-competitive with fossil fuels in many regions, and electric vehicles are gaining market share. Yet fossil fuel subsidies persist, and new fossil fuel infrastructure continues to be built. The window for meaningful action is narrowing.",
+                        cn: "向可再生能源的过渡正在加速，但速度还不够快。风能和太阳能在许多地区已与化石燃料成本相当，电动汽车正在获得市场份额。然而化石燃料补贴仍然存在，新的化石燃料基础设施继续建设中。采取有意义行动的时间窗口正在缩小。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'consensus', meaning: '共识，一致意见' },
+                    { word: 'unequivocal', meaning: '明确的，不含糊的' },
+                    { word: 'unprecedented', meaning: '前所未有的，空前的' },
+                    { word: 'consequence', meaning: '后果，结果' },
+                    { word: 'extinction', meaning: '灭绝，消亡' },
+                    { word: 'commitment', meaning: '承诺，投入' },
+                    { word: 'emission', meaning: '排放，散发' },
+                    { word: 'infrastructure', meaning: '基础设施' }
+                ]
+            },
+            {
+                id: 5,
+                category: 'education',
+                categoryCN: '教育',
+                level: '中级',
+                levelClass: 'intermediate',
+                title: 'The Evolution of Online Learning',
+                titleCN: '在线学习的演变',
+                desc: 'Digital platforms are reshaping how we acquire knowledge. From MOOCs to personalized learning paths, technology is democratizing education.',
+                descCN: '数字平台正在重塑我们获取知识的方式。从大型开放在线课程到个性化学习路径，技术正在使教育民主化。',
+                cover: 'https://images.unsplash.com/photo-1501504905252-7d2cfd50e5c3?w=800&h=400&fit=crop',
+                wordCount: 460,
+                paragraphs: [
+                    {
+                        en: "The landscape of education has been transformed by digital technology. Online learning platforms now offer courses from prestigious universities to anyone with an internet connection. This democratization of education has opened doors for millions who previously lacked access to quality educational resources.",
+                        cn: "教育格局已被数字技术改变。在线学习平台现在向任何有互联网连接的人提供名牌大学的课程。这种教育的民主化为数百万以前无法获得优质教育资源的人打开了大门。"
+                    },
+                    {
+                        en: "Massive Open Online Courses, or MOOCs, pioneered this revolution. Platforms like Coursera, edX, and Khan Academy have enrolled millions of learners worldwide. These platforms offer everything from brief tutorials to complete degree programs, often at a fraction of the cost of traditional education.",
+                        cn: "大规模开放在线课程（MOOC）开创了这场革命。Coursera、edX和Khan Academy等平台已在全球招收了数百万学习者。这些平台提供从简短教程到完整学位课程的一切，费用通常只是传统教育的一小部分。"
+                    },
+                    {
+                        en: "However, online learning is not without challenges. The completion rates for self-paced courses remain low, and the lack of face-to-face interaction can make it difficult for some learners to stay motivated. Critics argue that certain skills, particularly those requiring hands-on practice or collaborative work, are harder to develop in digital environments.",
+                        cn: "然而，在线学习并非没有挑战。自定进度课程的完成率仍然很低，缺乏面对面互动可能使一些学习者难以保持动力。批评者认为，某些技能，特别是那些需要动手实践或协作工作的技能，在数字环境中更难发展。"
+                    },
+                    {
+                        en: "The future of education likely lies in blended approaches that combine the best of online and in-person learning. Adaptive learning technologies can personalize instruction to individual needs, while physical classrooms provide social interaction and mentorship. The challenge is designing systems that serve diverse learners effectively.",
+                        cn: "教育的未来可能在于结合在线和面对面学习最佳效果的混合方法。自适应学习技术可以根据个人需求个性化教学，而实体教室提供社交互动和指导。挑战在于设计能够有效服务于不同学习者的系统。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'transform', meaning: '改变，转变' },
+                    { word: 'prestigious', meaning: '有声望的，著名的' },
+                    { word: 'democratization', meaning: '民主化' },
+                    { word: 'pioneer', meaning: '开创，倡导' },
+                    { word: 'completion', meaning: '完成' },
+                    { word: 'motivated', meaning: '有动力的，积极的' },
+                    { word: 'collaborative', meaning: '合作的，协作的' },
+                    { word: 'instruction', meaning: '教学，指导' }
+                ]
+            },
+            {
+                id: 6,
+                category: 'technology',
+                categoryCN: '科技',
+                level: '高级',
+                levelClass: 'advanced',
+                title: 'Quantum Computing: The Next Frontier',
+                titleCN: '量子计算：下一个前沿',
+                desc: 'Quantum computers promise to solve problems that classical computers cannot. Explore the principles behind this revolutionary technology and its potential applications.',
+                descCN: '量子计算机有望解决经典计算机无法解决的问题。探索这一革命性技术背后的原理及其潜在应用。',
+                cover: 'https://images.unsplash.com/photo-1635070041078-e363dbe00c05?w=800&h=400&fit=crop',
+                wordCount: 540,
+                paragraphs: [
+                    {
+                        en: "Quantum computing represents a paradigm shift in computational power. Unlike classical computers, which process information in binary bits (zeros and ones), quantum computers use quantum bits, or qubits. These qubits can exist in multiple states simultaneously through a phenomenon known as superposition, enabling quantum computers to perform certain calculations exponentially faster.",
+                        cn: "量子计算代表着计算能力的范式转变。与以二进制位（0和1）处理信息的经典计算机不同，量子计算机使用量子位或量子比特。这些量子比特通过一种称为叠加的现象可以同时存在于多种状态，使量子计算机能够以指数级的速度执行某些计算。"
+                    },
+                    {
+                        en: "Another quantum phenomenon, entanglement, allows qubits to be correlated in ways that have no classical equivalent. When qubits become entangled, measuring one instantly affects the other, regardless of the distance between them. This property is fundamental to quantum computing's power and enables new approaches to problems in cryptography, optimization, and simulation.",
+                        cn: "另一个量子现象，纠缠，使量子比特能够以经典方式无法实现的方式相关联。当量子比特变得纠缠时，测量其中一个会瞬间影响另一个，无论它们之间的距离如何。这一特性是量子计算能力的基础，并为密码学、优化和仿真问题提供了新方法。"
+                    },
+                    {
+                        en: "The potential applications of quantum computing are vast. Pharmaceutical companies hope to simulate molecular interactions for drug discovery. Financial institutions see potential for portfolio optimization and risk analysis. Cryptographers worry that powerful quantum computers could eventually break current encryption methods, prompting the development of quantum-resistant algorithms.",
+                        cn: "量子计算的潜在应用非常广泛。制药公司希望模拟分子相互作用用于药物发现。金融机构看到了投资组合优化和风险分析的潜力。密码学家担心强大的量子计算机最终可能破解当前的加密方法，促使抗量子算法的开发。"
+                    },
+                    {
+                        en: "However, significant challenges remain. Qubits are extremely fragile and must be kept at temperatures near absolute zero to maintain their quantum properties. Error correction and scaling up the number of qubits while maintaining coherence are active areas of research. Despite these hurdles, major technology companies and governments are investing billions in quantum research.",
+                        cn: "然而，重大挑战依然存在。量子比特极其脆弱，必须保持在接近绝对零度的温度下才能维持其量子特性。错误纠正和扩大量子比特数量同时保持相干性是活跃的研究领域。尽管存在这些障碍，主要科技公司各国政府正在量子研究上投入数十亿美元。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'paradigm', meaning: '范式，典范' },
+                    { word: 'superposition', meaning: '叠加' },
+                    { word: 'exponentially', meaning: '指数级地' },
+                    { word: 'entanglement', meaning: '纠缠' },
+                    { word: 'cryptocurrency', meaning: '加密货币' },
+                    { word: 'encryption', meaning: '加密' },
+                    { word: 'fragile', meaning: '脆弱的，易碎的' },
+                    { word: 'coherence', meaning: '相干性，一致性' }
+                ]
+            },
+            {
+                id: 7,
+                category: 'business',
+                categoryCN: '商业',
+                level: '初级',
+                levelClass: 'beginner',
+                title: 'The Rise of E-Commerce',
+                titleCN: '电子商务的兴起',
+                desc: 'Online shopping has changed how we buy everything from groceries to luxury goods. Learn about the trends shaping the future of retail.',
+                descCN: '网上购物改变了我们购买从杂货到奢侈品的一切方式。了解塑造零售业未来的趋势。',
+                cover: 'https://images.unsplash.com/photo-1556742049-0f1c1ec8c435?w=800&h=400&fit=crop',
+                wordCount: 390,
+                paragraphs: [
+                    {
+                        en: "E-commerce has fundamentally changed the retail landscape. What began as a convenient way to buy books and electronics has evolved into a trillion-dollar industry that touches every aspect of consumer life. Online shopping offers convenience, variety, and often better prices than traditional stores.",
+                        cn: "电子商务从根本上改变了零售格局。最初作为购买书籍和电子产品的便捷方式，已发展成为一个涉及消费者生活各个方面的万亿美元产业。网上购物提供了便利、多样性，而且价格通常比传统商店更优惠。"
+                    },
+                    {
+                        en: "The growth of mobile shopping has been particularly dramatic. Smartphones now account for more than half of all online purchases. Consumers browse, compare prices, and make purchases while commuting, waiting in line, or relaxing at home. Social media platforms have integrated shopping features, making the line between content and commerce increasingly blurred.",
+                        cn: "移动购物的增长尤为显著。智能手机现在占所有在线购买的一半以上。消费者在通勤、排队或在家休息时浏览、比较价格并进行购买。社交媒体平台已整合购物功能，使内容和商业之间的界限越来越模糊。"
+                    },
+                    {
+                        en: "Traditional retailers have had to adapt or risk obsolescence. Many have developed their own online presence while reimagining physical stores as experience centers. The survivors combine digital convenience with the tactile experience and immediate gratification that only physical retail can provide.",
+                        cn: "传统零售商不得不适应，否则将面临淘汰。许多零售商开发了自己的在线业务，同时将实体店重新构想为体验中心。幸存者将数字便利与只有实体零售才能提供的触觉体验和即时满足相结合。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'fundamental', meaning: '根本的，基础的' },
+                    { word: 'convenience', meaning: '便利，方便' },
+                    { word: 'variety', meaning: '多样性，种类' },
+                    { word: 'dramatic', meaning: '戏剧性的，巨大的' },
+                    { word: 'obsolescence', meaning: '过时，淘汰' },
+                    { word: 'gratification', meaning: '满足，满意' }
+                ]
+            },
+            {
+                id: 8,
+                category: 'health',
+                categoryCN: '健康',
+                level: '中级',
+                levelClass: 'intermediate',
+                title: 'Mental Health in the Modern Workplace',
+                titleCN: '现代职场心理健康',
+                desc: 'Companies are increasingly recognizing the importance of employee mental health. Explore strategies for creating healthier work environments.',
+                descCN: '公司越来越认识到员工心理健康的重要性。探索创造更健康工作环境的策略。',
+                cover: 'https://images.unsplash.com/photo-1493836512294-502baa1986e2?w=800&h=400&fit=crop',
+                wordCount: 470,
+                paragraphs: [
+                    {
+                        en: "Mental health has emerged as a critical issue in the modern workplace. Surveys consistently show that a significant percentage of employees experience stress, anxiety, or burnout related to their jobs. The economic impact is substantial, with mental health issues costing employers billions in lost productivity annually.",
+                        cn: "心理健康已成为现代职场的一个关键问题。调查一致显示，相当大比例的员工经历与工作相关的压力、焦虑或倦怠。经济影响是巨大的，心理健康问题每年给雇主造成数十亿美元的生产力损失。"
+                    },
+                    {
+                        en: "Progressive employers are responding with comprehensive mental health programs. These initiatives include employee assistance programs, mental health days off, access to counseling services, and training for managers to recognize and respond to mental health concerns. Some companies are redesigning work processes to reduce unnecessary stress.",
+                        cn: "进步的雇主正在以全面的心理健康计划做出回应。这些举措包括员工援助计划、心理健康休假日、咨询服务以及培训管理者识别和回应心理健康问题。一些公司正在重新设计工作流程以减少不必要的压力。"
+                    },
+                    {
+                        en: "Reducing the stigma around mental health remains essential. Many employees hesitate to seek help because they fear negative consequences for their careers. Companies that foster open conversations about mental health and lead by example from senior leadership create environments where employees feel safe seeking support.",
+                        cn: "减少围绕心理健康的污名仍然至关重要。许多员工因为担心对自己职业生涯的负面后果而不敢寻求帮助。那些培养关于心理健康的开放对话并以高级领导层为榜样进行领导的公司，创造了员工感到安全寻求支持的环境。"
+                    },
+                    {
+                        en: "The role of technology in workplace mental health is complex. Digital tools can help employees track their well-being and access support, but constant connectivity can also contribute to burnout. Finding the right balance requires thoughtful policies about after-hours communication and expectations around responsiveness.",
+                        cn: "技术在职场心理健康中的作用很复杂。数字工具可以帮助员工追踪他们的健康状况并获取支持，但持续的连接也可能导致倦怠。找到正确的平衡需要关于下班后沟通和响应期望的周全政策。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'emerged', meaning: '出现，浮现' },
+                    { word: 'significant', meaning: '重要的，显著的' },
+                    { word: 'comprehensive', meaning: '全面的，综合的' },
+                    { word: 'initiative', meaning: '倡议，主动性' },
+                    { word: 'stigma', meaning: '污名，耻辱' },
+                    { word: 'consequence', meaning: '后果，结果' },
+                    { word: 'foster', meaning: '培养，促进' },
+                    { word: 'responsiveness', meaning: '响应能力，反应性' }
+                ]
+            },
+            {
+                id: 9,
+                category: 'culture',
+                categoryCN: '文化',
+                level: '初级',
+                levelClass: 'beginner',
+                title: 'The Global Impact of Social Media',
+                titleCN: '社交媒体的全球影响',
+                desc: 'Platforms like Facebook, Twitter, and TikTok have transformed how we communicate, share information, and perceive the world.',
+                descCN: 'Facebook、Twitter和TikTok等平台已改变了我们交流、分享信息和感知世界的方式。',
+                cover: 'https://images.unsplash.com/photo-1611162617474-5b21cd872649?w=800&h=400&fit=crop',
+                wordCount: 380,
+                paragraphs: [
+                    {
+                        en: "Social media has transformed global communication in ways that were unimaginable just two decades ago. Platforms connecting billions of users have changed how we share news, maintain relationships, and express ourselves. The impact extends from personal interactions to political movements and business strategies.",
+                        cn: "社交媒体以二十年前无法想象的方式改变了全球通信。连接数十亿用户的平台已改变了我们分享新闻、维持关系和表达自我的方式。其影响从个人互动延伸到政治运动和商业战略。"
+                    },
+                    {
+                        en: "These platforms have democratized content creation. Anyone with a smartphone can potentially reach millions of viewers. This has created new career opportunities for content creators while challenging traditional media institutions. The advertising industry has been revolutionized as companies shift spending to targeted social media campaigns.",
+                        cn: "这些平台已使内容创作民主化。任何拥有智能手机的人都可能接触到数百万观众。这为内容创作者创造了新的职业机会，同时挑战了传统媒体机构。随着公司将支出转向定向社交媒体活动，广告业已被彻底改变。"
+                    },
+                    {
+                        en: "However, concerns about social media's effects on society continue to grow. Issues including misinformation, privacy violations, and the impact on mental health have prompted calls for regulation. Young people especially report negative effects on self-esteem and well-being. The challenge is preserving the benefits while addressing the harms.",
+                        cn: "然而，对社交媒体社会影响的担忧持续增长。包括错误信息、隐私侵犯和对心理健康的影响等问题引发了监管呼声。年轻人特别报告对自尊和幸福感的负面影响。挑战在于在保留好处的同时解决危害。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'unimaginable', meaning: '无法想象的' },
+                    { word: 'platform', meaning: '平台' },
+                    { word: 'democratize', meaning: '使民主化' },
+                    { word: 'revolutionize', meaning: '彻底改变' },
+                    { word: 'misinformation', meaning: '错误信息' },
+                    { word: 'well-being', meaning: '幸福感，健康' }
+                ]
+            },
+            {
+                id: 10,
+                category: 'environment',
+                categoryCN: '环境',
+                level: '中级',
+                levelClass: 'intermediate',
+                title: 'The Ocean Plastic Crisis',
+                titleCN: '海洋塑料危机',
+                desc: 'Millions of tons of plastic enter our oceans each year. Understanding the problem and finding solutions is critical for marine ecosystems.',
+                descCN: '每年有数百万吨塑料进入我们的海洋。理解问题并找到解决方案对海洋生态系统至关重要。',
+                cover: 'https://images.unsplash.com/photo-1621450577929-536ed51f6843?w=800&h=400&fit=crop',
+                wordCount: 450,
+                paragraphs: [
+                    {
+                        en: "Every year, approximately eight million tons of plastic enter the world's oceans. This debris ranges from large floating items to microscopic particles called microplastics. The plastic accumulates in ocean gyres, washes ashore on beaches, and enters marine food chains, creating an environmental crisis of global proportions.",
+                        cn: "每年约有八百万吨塑料进入世界海洋。这些碎片从大型漂浮物到称为微塑料的微小颗粒不等。塑料在海洋环流中积累，冲上海滩，进入海洋食物链，造成全球范围的环境危机。"
+                    },
+                    {
+                        en: "Marine animals suffer immensely from plastic pollution. Sea turtles mistake plastic bags for jellyfish, their natural prey. Whales and dolphins become entangled in discarded fishing nets. Seabirds feed plastic pieces to their chicks, who then starve with full stomachs. The impact on marine biodiversity is devastating.",
+                        cn: "海洋生物深受塑料污染之苦。海龟误将塑料袋当作它们的天然猎物水母。鲸鱼和海豚被废弃的渔网缠住。海鸟将塑料碎片喂给幼鸟，然后幼鸟在饱腹状态下饿死。对海洋生物多样性的影响是毁灭性的。"
+                    },
+                    {
+                        en: "Efforts to address ocean plastic are increasing. Some countries have banned single-use plastics like bags and straws. Cleanup projects use specialized vessels to remove floating debris. Researchers are developing biodegradable alternatives to traditional plastics. However, the most effective solution is preventing plastic from reaching the ocean in the first place.",
+                        cn: "解决海洋塑料的努力正在增加。一些国家已禁止使用塑料袋和吸管等一次性塑料。清理项目使用专用船只清除漂浮碎片。研究人员正在开发传统塑料的可生物降解替代品。然而，最有效的解决方案是首先防止塑料进入海洋。"
+                    },
+                    {
+                        en: "Individuals can contribute by reducing their plastic consumption, properly disposing of waste, and supporting policies that hold producers responsible for the lifecycle of their products. The transition to a circular economy, where materials are reused rather than discarded, is essential for solving the ocean plastic crisis.",
+                        cn: "个人可以通过减少塑料消费、正确处理废物以及支持要求生产者对其产品生命周期负责的政策来做出贡献。向循环经济过渡，即材料被重复使用而非丢弃，对解决海洋塑料危机至关重要。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'approximately', meaning: '大约，大概' },
+                    { word: 'microscopic', meaning: '微小的，显微镜下的' },
+                    { word: 'accumulate', meaning: '积累，积聚' },
+                    { word: 'proportions', meaning: '比例，规模' },
+                    { word: 'biodiversity', meaning: '生物多样性' },
+                    { word: 'devastating', meaning: '毁灭性的' },
+                    { word: 'biodegradable', meaning: '可生物降解的' },
+                    { word: 'consumption', meaning: '消费，消耗' }
+                ]
+            },
+            {
+                id: 11,
+                category: 'technology',
+                categoryCN: '科技',
+                level: '中级',
+                levelClass: 'intermediate',
+                title: 'The Promise of Autonomous Vehicles',
+                titleCN: '自动驾驶汽车的前景',
+                desc: 'Self-driving cars could revolutionize transportation, but significant challenges remain before they become mainstream.',
+                descCN: '自动驾驶汽车可能会彻底改变交通方式，但在成为主流之前仍面临重大挑战。',
+                cover: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&h=400&fit=crop',
+                wordCount: 490,
+                paragraphs: [
+                    {
+                        en: "Autonomous vehicles represent one of the most ambitious applications of artificial intelligence. These self-driving cars use a combination of sensors, cameras, and machine learning algorithms to navigate roads without human intervention. Proponents argue that autonomous vehicles could dramatically reduce accidents caused by human error, which account for over 90 percent of traffic fatalities.",
+                        cn: "自动驾驶汽车代表了人工智能最雄心勃勃的应用之一。这些自动驾驶汽车使用传感器、摄像头和机器学习算法的组合，在没有人类干预的情况下导航道路。支持者认为，自动驾驶汽车可以大幅减少由人为错误造成的事故，这些事故占交通死亡事故的90%以上。"
+                    },
+                    {
+                        en: "The technology has advanced significantly, with major companies testing vehicles on public roads. Some autonomous features, like adaptive cruise control and lane-keeping assistance, are already available in consumer vehicles. However, fully autonomous vehicles capable of handling all driving scenarios remain in development, with technical and regulatory challenges still to overcome.",
+                        cn: "该技术已取得重大进展，主要公司正在公共道路上测试车辆。一些自动功能，如自适应巡航控制和车道保持辅助，已在消费车辆中提供。然而，能够处理所有驾驶场景的完全自动驾驶汽车仍在开发中，技术和监管挑战仍需克服。"
+                    },
+                    {
+                        en: "Critics raise concerns about safety, liability, and the potential impact on employment. Taxi, truck, and delivery drivers could face job displacement as autonomous technology matures. Questions about how autonomous vehicles should make decisions in unavoidable accident scenarios raise ethical dilemmas that society must address.",
+                        cn: "批评者对安全、责任和对就业的潜在影响提出担忧。随着自动驾驶技术的成熟，出租车、卡车和送货司机可能面临工作流离失所。关于自动驾驶汽车在不可避免的事故场景中应如何做出决定的问题，引发了社会必须解决的伦理困境。"
+                    },
+                    {
+                        en: "The timeline for widespread adoption remains uncertain. While some companies have promised autonomous taxis within years, others caution that full autonomy may be decades away. What seems certain is that the relationship between humans and vehicles will continue to evolve as technology progresses.",
+                        cn: "广泛采用的时间表仍不确定。虽然一些公司承诺在几年内推出自动驾驶出租车，但其他人警告说完全自动驾驶可能还需要几十年。似乎可以确定的是，随着技术的进步，人类与车辆之间的关系将继续演变。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'autonomous', meaning: '自主的，自治的' },
+                    { word: 'intervention', meaning: '干预，介入' },
+                    { word: 'fatalities', meaning: '死亡，死亡事故' },
+                    { word: 'scenarios', meaning: '场景，方案' },
+                    { word: 'liability', meaning: '责任，义务' },
+                    { word: 'displacement', meaning: '取代，流离失所' },
+                    { word: 'dilemmas', meaning: '困境，进退两难' },
+                    { word: 'adoption', meaning: '采用，采纳' }
+                ]
+            },
+            {
+                id: 12,
+                category: 'education',
+                categoryCN: '教育',
+                level: '初级',
+                levelClass: 'beginner',
+                title: 'Learning a Second Language: Benefits and Strategies',
+                titleCN: '学习第二语言：益处与策略',
+                desc: 'Bilingualism offers cognitive advantages and cultural insights. Discover effective methods for language acquisition.',
+                descCN: '双语能力提供认知优势和文化洞察。发现语言习得的有效方法。',
+                cover: 'https://images.unsplash.com/photo-1456513080518-593fb7007683?w=800&h=400&fit=crop',
+                wordCount: 360,
+                paragraphs: [
+                    {
+                        en: "Learning a second language opens doors to new cultures, career opportunities, and cognitive benefits. Research has shown that bilingual individuals often perform better on tasks requiring attention, multitasking, and problem-solving. The brain's plasticity allows for language learning at any age, though earlier is generally easier.",
+                        cn: "学习第二语言为新的文化、职业机会和认知益处打开了大门。研究表明，双语者通常在需要注意力、多任务处理和解决问题的任务上表现更好。大脑的可塑性允许在任何年龄学习语言，尽管通常越早越容易。"
+                    },
+                    {
+                        en: "Effective language learning involves a combination of methods. Immersion, whether through travel or creating a language-rich environment at home, provides natural context for acquisition. Regular practice with native speakers, through language exchanges or tutoring, helps develop authentic pronunciation and conversational skills.",
+                        cn: "有效的语言学习涉及多种方法的结合。沉浸式学习，无论是通过旅行还是在家创造丰富的语言环境，都为习得提供了自然语境。与母语者定期练习，通过语言交流或辅导，有助于发展地道的发音和对话技能。"
+                    },
+                    {
+                        en: "Technology has made language learning more accessible than ever. Apps offer gamified lessons that fit into busy schedules. Streaming services provide entertainment in target languages. Online communities connect learners worldwide. The key is consistent practice and maintaining motivation through meaningful engagement with the language.",
+                        cn: "技术使语言学习比以往任何时候都更容易获得。应用程序提供适合繁忙日程的游戏化课程。流媒体服务提供目标语言的娱乐内容。在线社区连接了全球的学习者。关键是持续的练习和通过与语言的有意义参与保持动力。"
+                    }
+                ],
+                vocabulary: [
+                    { word: 'cognitive', meaning: '认知的，认识的' },
+                    { word: 'bilingual', meaning: '双语的' },
+                    { word: 'plasticity', meaning: '可塑性' },
+                    { word: 'immersion', meaning: '沉浸式学习' },
+                    { word: 'acquisition', meaning: '习得，获得' },
+                    { word: 'accessible', meaning: '可获得的，易懂的' }
+                ]
+            }
+        ];
+
+        // 全局变量
+        let currentArticle = null;
+        let isReading = false;
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let currentVoice = null;
+        let quizCurrentIndex = 0;
+        let quizScore = 0;
+        let quizQuestions = [];
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadVoices();
+            renderArticles();
+            setupFilters();
+        });
+
+        // 加载语音
+        function loadVoices() {
+            const voiceSelect = document.getElementById('voiceSelect');
+            
+            function populateVoices() {
+                const voices = speechSynthesis.getVoices();
+                voiceSelect.innerHTML = '';
+                
+                // 优先选择英语语音
+                const englishVoices = voices.filter(v => v.lang.startsWith('en'));
+                
+                englishVoices.forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = voice.name;
+                    voiceSelect.appendChild(option);
+                });
+                
+                if (englishVoices.length > 0) {
+                    currentVoice = englishVoices[0];
+                }
+                
+                // 如果没有英语语音，显示所有语音
+                if (englishVoices.length === 0) {
+                    voices.forEach((voice, index) => {
+                        const option = document.createElement('option');
+                        option.value = index;
+                        option.textContent = `${voice.name} (${voice.lang})`;
+                        voiceSelect.appendChild(option);
+                    });
+                    if (voices.length > 0) {
+                        currentVoice = voices[0];
+                    }
+                }
+            }
+            
+            populateVoices();
+            if (speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = populateVoices;
+            }
+            
+            voiceSelect.addEventListener('change', function() {
+                const voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('en'));
+                if (voices.length > 0) {
+                    currentVoice = voices[this.value];
+                } else {
+                    currentVoice = speechSynthesis.getVoices()[this.value];
+                }
+            });
+        }
+
+        // 渲染文章列表
+        function renderArticles(category = 'all') {
+            const grid = document.getElementById('articlesGrid');
+            grid.innerHTML = '';
+            
+            const filtered = category === 'all' 
+                ? articles 
+                : articles.filter(a => a.category === category);
+            
+            filtered.forEach(article => {
+                const card = document.createElement('div');
+                card.className = 'article-card';
+                card.onclick = () => showArticle(article.id);
+                
+                card.innerHTML = `
+                    <img class="article-cover" src="${article.cover}" alt="${article.title}" onerror="this.src='https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=800&h=400&fit=crop'">
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span class="article-category">${article.categoryCN}</span>
+                            <span class="article-level">${article.level}</span>
+                        </div>
+                        <h3 class="article-title">${article.title}</h3>
+                        <p class="article-desc">${article.descCN}</p>
+                        <div class="article-footer">
+                            <span class="article-word-count">📖 ${article.wordCount} 词</span>
+                            <span>⏱ ${Math.ceil(article.wordCount / 150)} 分钟</span>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // 设置筛选器
+        function setupFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderArticles(this.dataset.category);
+                });
+            });
+        }
+
+        // 显示文章详情
+        function showArticle(id) {
+            currentArticle = articles.find(a => a.id === id);
+            if (!currentArticle) return;
+            
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('quizSection').classList.remove('active');
+            document.getElementById('articleDetail').classList.add('active');
+            
+            document.getElementById('detailCover').src = currentArticle.cover;
+            document.getElementById('detailCategory').textContent = currentArticle.categoryCN;
+            document.getElementById('detailTitle').textContent = currentArticle.title;
+            document.getElementById('detailLevel').textContent = `难度: ${currentArticle.level}`;
+            document.getElementById('detailWordCount').textContent = `词数: ${currentArticle.wordCount}`;
+            document.getElementById('detailReadTime').textContent = `阅读时长: ${Math.ceil(currentArticle.wordCount / 150)} 分钟`;
+            
+            renderArticleContent();
+        }
+
+        // 渲染文章内容
+        function renderArticleContent() {
+            const container = document.getElementById('articleContent');
+            container.innerHTML = '';
+            
+            currentArticle.paragraphs.forEach((para, index) => {
+                const div = document.createElement('div');
+                div.className = 'paragraph';
+                
+                // 处理英文段落，为每个单词添加点击事件
+                const wordsWithSpans = para.en.split(/\s+/).map(word => {
+                    const cleanWord = word.replace(/[^\w'-]/g, '');
+                    if (cleanWord) {
+                        return `<span class="word" onclick="showWordPopup(event, '${cleanWord}')">${word}</span>`;
+                    }
+                    return word;
+                }).join(' ');
+                
+                div.innerHTML = `
+                    <div class="paragraph-en">${wordsWithSpans}</div>
+                    <div class="paragraph-cn">${para.cn}</div>
+                `;
+                
+                container.appendChild(div);
+            });
+        }
+
+        // 显示单词弹窗
+        function showWordPopup(event, word) {
+            const popup = document.getElementById('wordPopup');
+            const vocabulary = currentArticle.vocabulary.find(v => v.word.toLowerCase() === word.toLowerCase());
+            
+            document.getElementById('popupWord').textContent = word;
+            document.getElementById('popupPhonetic').textContent = `/${word}/`;
+            document.getElementById('popupMeaning').textContent = vocabulary ? vocabulary.meaning : '暂无释义';
+            
+            // 发音
+            speakWord(word);
+            
+            // 定位弹窗
+            const rect = event.target.getBoundingClientRect();
+            popup.style.left = `${rect.left}px`;
+            popup.style.top = `${rect.bottom + 10}px`;
+            popup.classList.add('active');
+            
+            // 点击其他地方关闭
+            setTimeout(() => {
+                document.addEventListener('click', closeWordPopup);
+            }, 0);
+        }
+
+        function closeWordPopup() {
+            document.getElementById('wordPopup').classList.remove('active');
+            document.removeEventListener('click', closeWordPopup);
+        }
+
+        // 弹窗内单词发音
+        function speakPopupWord() {
+            const word = document.getElementById('popupWord').textContent;
+            speakWord(word);
+        }
+
+        // 单词发音函数
+        function speakWord(word) {
+            stopReading();
+            const utterance = new SpeechSynthesisUtterance(word);
+            if (currentVoice) {
+                utterance.voice = currentVoice;
+            }
+            utterance.rate = 0.8;
+            utterance.pitch = 1;
+            speechSynthesis.speak(utterance);
+        }
+
+        // 全文朗读
+        function toggleReadAll() {
+            const btn = document.getElementById('readAllBtn');
+            
+            if (isReading) {
+                stopReading();
+                btn.classList.remove('speaking');
+                btn.innerHTML = '<span>🔊</span><span>全文朗读</span>';
+            } else {
+                startReadAll();
+                btn.classList.add('speaking');
+                btn.innerHTML = '<span>⏸</span><span>暂停朗读</span>';
+            }
+        }
+
+        function startReadAll() {
+            isReading = true;
+            let allText = currentArticle.paragraphs.map(p => p.en).join(' ');
+            
+            currentUtterance = new SpeechSynthesisUtterance(allText);
+            if (currentVoice) {
+                currentUtterance.voice = currentVoice;
+            }
+            currentUtterance.rate = 0.9;
+            currentUtterance.pitch = 1;
+            
+            currentUtterance.onend = function() {
+                isReading = false;
+                const btn = document.getElementById('readAllBtn');
+                btn.classList.remove('speaking');
+                btn.innerHTML = '<span>🔊</span><span>全文朗读</span>';
+            };
+            
+            currentUtterance.onerror = function() {
+                isReading = false;
+                const btn = document.getElementById('readAllBtn');
+                btn.classList.remove('speaking');
+                btn.innerHTML = '<span>🔊</span><span>全文朗读</span>';
+            };
+            
+            speechSynthesis.speak(currentUtterance);
+        }
+
+        // 停止朗读
+        function stopReading() {
+            speechSynthesis.cancel();
+            isReading = false;
+        }
+
+        // 显示首页
+        function showHome() {
+            stopReading();
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('articleDetail').classList.remove('active');
+            document.getElementById('quizSection').classList.remove('active');
+        }
+
+        // 开始单词测验
+        function startQuiz() {
+            if (!currentArticle) {
+                currentArticle = articles[0];
+            }
+            
+            stopReading();
+            
+            document.getElementById('homeView').style.display = 'none';
+            document.getElementById('articleDetail').classList.remove('active');
+            document.getElementById('quizSection').classList.add('active');
+            
+            // 重置测验状态
+            quizCurrentIndex = 0;
+            quizScore = 0;
+            document.getElementById('quizResult').style.display = 'none';
+            document.getElementById('quizOptions').style.display = 'grid';
+            
+            // 准备测验题目
+            prepareQuizQuestions();
+            showQuizQuestion();
+        }
+
+        // 准备测验题目
+        function prepareQuizQuestions() {
+            // 使用当前文章的词汇
+            let vocabulary = currentArticle.vocabulary.slice(0, 10);
+            
+            // 如果词汇不足10个，从其他文章补充
+            if (vocabulary.length < 10) {
+                const otherWords = articles
+                    .filter(a => a.id !== currentArticle.id)
+                    .flatMap(a => a.vocabulary);
+                
+                const needed = 10 - vocabulary.length;
+                const shuffled = otherWords.sort(() => Math.random() - 0.5);
+                vocabulary = [...vocabulary, ...shuffled.slice(0, needed)];
+            }
+            
+            quizQuestions = vocabulary.map(v => {
+                // 生成干扰选项
+                const wrongOptions = articles
+                    .flatMap(a => a.vocabulary)
+                    .filter(w => w.word !== v.word)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(w => w.meaning);
+                
+                const options = [v.meaning, ...wrongOptions].sort(() => Math.random() - 0.5);
+                
+                return {
+                    word: v.word,
+                    correctAnswer: v.meaning,
+                    options: options
+                };
+            });
+        }
+
+        // 显示测验题目
+        function showQuizQuestion() {
+            if (quizCurrentIndex >= quizQuestions.length) {
+                showQuizResult();
+                return;
+            }
+            
+            const question = quizQuestions[quizCurrentIndex];
+            
+            document.getElementById('quizWord').textContent = question.word;
+            document.getElementById('quizProgress').textContent = `题目 ${quizCurrentIndex + 1}/${quizQuestions.length}`;
+            document.getElementById('quizProgressFill').style.width = `${((quizCurrentIndex + 1) / quizQuestions.length) * 100}%`;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = option;
+                btn.onclick = () => checkAnswer(option, question.correctAnswer, btn);
+                optionsContainer.appendChild(btn);
+            });
+            
+            // 读出单词
+            speakWord(question.word);
+        }
+
+        // 检查答案
+        function checkAnswer(selected, correct, btn) {
+            const allOptions = document.querySelectorAll('.quiz-option');
+            allOptions.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            
+            if (selected === correct) {
+                btn.classList.add('correct');
+                quizScore++;
+                
+                setTimeout(() => {
+                    quizCurrentIndex++;
+                    showQuizQuestion();
+                }, 1000);
+            } else {
+                btn.classList.add('wrong');
+                
+                // 显示正确答案
+                allOptions.forEach(opt => {
+                    if (opt.textContent === correct) {
+                        opt.classList.add('correct');
+                    }
+                });
+                
+                setTimeout(() => {
+                    quizCurrentIndex++;
+                    showQuizQuestion();
+                }, 2000);
+            }
+        }
+
+        // 显示测验结果
+        function showQuizResult() {
+            document.getElementById('quizOptions').style.display = 'none';
+            document.getElementById('quizResult').style.display = 'block';
+            
+            const percentage = Math.round((quizScore / quizQuestions.length) * 100);
+            document.getElementById('quizScore').textContent = `${percentage}%`;
+            
+            let message = '';
+            if (percentage >= 90) {
+                message = '太棒了！你已经掌握了这些单词！🎉';
+            } else if (percentage >= 70) {
+                message = '做得不错！继续努力！💪';
+            } else if (percentage >= 50) {
+                message = '还需要多加练习哦！📚';
+            } else {
+                message = '建议重新阅读文章后再来测验！📖';
+            }
+            
+            document.getElementById('quizMessage').textContent = message;
+        }
+    </script>
+</body>
+</html>
